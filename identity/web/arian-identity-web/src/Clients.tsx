@@ -1,3 +1,4 @@
+import { Client } from "./Client";
 import { useClients } from "./hooks/useClients";
 
 export function Clients() {
@@ -11,16 +12,9 @@ export function Clients() {
         clientInfo = <div>Error: {error.message}</div>;
     }
     else {
-        clientInfo = <ul>
-            {clients.map(client => (
-                <>
-                    <li><b>client_id:</b> <code>{client.client_id}</code></li>
-                    <li><b>client_secret:</b> <code>{client.client_secret}</code></li>
-                    <li><b>scope:</b> <code>{client.scope}</code></li>
-                    <li><b>redirect_uri:</b> <code>{client.redirect_uris}</code></li>
-                </>
-            ))}
-        </ul>
+        clientInfo = clients.map(client => (
+            <Client key={client.client_id} {...client} />
+        ));
     }
 
     return (
